@@ -53,7 +53,7 @@ namespace lcp {
     };
 }
 
-JNIEXPORT jobject JNICALL Java_org_readium_sdk_lcp_ServiceFactory_nativeBuild(
+JNIEXPORT jobject JNICALL Java_org_readium_sdkforcare_lcp_ServiceFactory_nativeBuild(
         JNIEnv *env, jobject obj, jstring jCertContent,
         jobject jStorageProvider,
 #if !DISABLE_NET_PROVIDER

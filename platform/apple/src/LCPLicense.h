@@ -41,6 +41,11 @@ namespace lcp {
 
 @property (readonly, nonatomic) NSString *userHint;
 
+//TEA
+- (NSString *)careAuthenticationHint;
+- (NSString *)linkAuthentication;
+- (NSString *)linkResource;
+
 #ifdef __cplusplus
 @property (readonly, nonatomic) lcp::ILicense *nativeLicense;
 - (instancetype)initWithLicense:(lcp::ILicense *)nativeLicense NS_DESIGNATED_INITIALIZER;

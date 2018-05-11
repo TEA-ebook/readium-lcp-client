@@ -24,7 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-package org.readium.sdk.lcp;
+package org.readium.sdkforcare.lcp;
 
 import android.app.Activity;
 import android.content.Context;

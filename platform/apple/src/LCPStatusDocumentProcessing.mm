@@ -706,7 +706,7 @@ didCompleteWithError:(nullable NSError *)error
                         templated = YES;
                     }
                 } else if ([templated_ isKindOfClass:[NSNumber class]]) {
-                    if (((NSNumber*)templated_) > 0) {
+                    if (([(NSNumber*)templated_ intValue]) > 0) {
                         templated = YES;
                     }
                 }

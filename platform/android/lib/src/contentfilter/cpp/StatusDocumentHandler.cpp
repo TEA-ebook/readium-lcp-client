@@ -33,7 +33,7 @@ namespace lcp {
         this->jStatusDocumentHandler = env->NewGlobalRef(jStatusDocumentHandler);
         jclass jStatusDocumentHandlerClass = env->GetObjectClass(this->jStatusDocumentHandler);
         this->jProcessMethodId = env->GetMethodID(jStatusDocumentHandlerClass, "process",
-                                                   "(Lorg/readium/sdk/lcp/License;)V");
+                                                   "(Lorg/readium/sdkforcare/lcp/License;)V");
         this->service = service;
     }
 
@@ -44,7 +44,7 @@ namespace lcp {
 
     void StatusDocumentHandler::process(ILicense *license) {
         JNIEnv *env = getJNIEnv();
-        jclass cls = env->FindClass("org/readium/sdk/lcp/License");
+        jclass cls = env->FindClass("org/readium/sdkforcare/lcp/License");
         jmethodID methodId = env->GetMethodID(cls, "<init>", "(JJ)V");
         jobject jLicense = env->NewObject(cls, methodId, (jlong) license, (jlong) this->service);
         env->CallVoidMethod(this->jStatusDocumentHandler, this->jProcessMethodId, jLicense);

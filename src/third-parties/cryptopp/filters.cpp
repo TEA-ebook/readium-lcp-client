@@ -758,9 +758,9 @@ void StreamTransformationFilter::LastPut(const byte *inString, size_t length)
 			else if (m_padding == W3C_PADDING)
 			{
 				byte pad = space[s - 1];
-				if (pad < 1 || pad > s)
+                if (pad < 1 || pad > s)
 					throw InvalidCiphertext("StreamTransformationFilter: invalid W3C block padding found");
-				length = s - pad;
+                length = s - pad;
 			}
 			else
 			{

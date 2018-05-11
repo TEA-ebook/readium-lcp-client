@@ -38,7 +38,7 @@ namespace lcp
         std::unique_lock<std::mutex> locker(m_rightsSync);
 
         const rapidjson::Value & rightsObject = reader->ReadObject("rights", parentObject);
-        if (!rightsObject.IsNull())
+        if (!rightsObject.IsNull() && rightsObject.IsObject())
         {
             for (auto it = rightsObject.MemberBegin(); it != rightsObject.MemberEnd(); ++it)
             {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		376D0BF92061A7CB00259015 /* CareAuthenticationProcessing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 376D0BF82061A7CB00259015 /* CareAuthenticationProcessing.mm */; };
 		5A01168E1C088BA4006F1A6F /* LCPAcquisition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5A0116811C088BA4006F1A6F /* LCPAcquisition.mm */; };
 		5A01168F1C088BA4006F1A6F /* LCPError.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5A0116831C088BA4006F1A6F /* LCPError.mm */; };
 		5A0116901C088BA4006F1A6F /* LCPiOSStorageProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5A0116851C088BA4006F1A6F /* LCPiOSStorageProvider.mm */; };
@@ -129,6 +130,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		376D0BF72061A7CB00259015 /* CareAuthenticationProcessing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareAuthenticationProcessing.h; sourceTree = "<group>"; };
+		376D0BF82061A7CB00259015 /* CareAuthenticationProcessing.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CareAuthenticationProcessing.mm; sourceTree = "<group>"; };
 		5A0116801C088BA4006F1A6F /* LCPAcquisition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCPAcquisition.h; sourceTree = "<group>"; };
 		5A0116811C088BA4006F1A6F /* LCPAcquisition.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LCPAcquisition.mm; sourceTree = "<group>"; };
 		5A0116821C088BA4006F1A6F /* LCPError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCPError.h; sourceTree = "<group>"; };
@@ -337,6 +340,8 @@
 				5A0116881C088BA4006F1A6F /* LCPService.h */,
 				5A0116891C088BA4006F1A6F /* LCPService.mm */,
 				5A01168A1C088BA4006F1A6F /* third-parties */,
+				376D0BF72061A7CB00259015 /* CareAuthenticationProcessing.h */,
+				376D0BF82061A7CB00259015 /* CareAuthenticationProcessing.mm */,
 			);
 			name = Apple;
 			path = src;
@@ -801,6 +806,7 @@
 				834E3B5A1E32566300DF472A /* EcdsaSha256SignatureAlgorithm.cpp in Sources */,
 				834E3B5F1E32A43600DF472A /* LCPStatusDocumentProcessing.mm in Sources */,
 				5A0116911C088BA4006F1A6F /* LCPLicense.mm in Sources */,
+				376D0BF92061A7CB00259015 /* CareAuthenticationProcessing.mm in Sources */,
 				5AF00D6D1C1F0A58008D0A5E /* CrlDistributionPoints.cpp in Sources */,
 				5AF00D7A1C1F0A58008D0A5E /* LcpUtils.cpp in Sources */,
 				5AF00D701C1F0A58008D0A5E /* CryptoppCryptoProvider.cpp in Sources */,

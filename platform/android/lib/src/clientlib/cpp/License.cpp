@@ -34,13 +34,13 @@
 //#include "epub3.h"
 #include <public/lcp.h>
 
-JNIEXPORT jboolean JNICALL Java_org_readium_sdk_lcp_License_nativeIsDecrypted(
+JNIEXPORT jboolean JNICALL Java_org_readium_sdkforcare_lcp_License_nativeIsDecrypted(
         JNIEnv *env, jobject obj, jlong licensePtr) {
     lcp::ILicense * license = (lcp::ILicense *) licensePtr;
     return (license->Decrypted()) ? JNI_TRUE : JNI_FALSE;
 }
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetOriginalContent(
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetOriginalContent(
         JNIEnv *env, jobject obj, jlong licensePtr) {
     lcp::ILicense * license = (lcp::ILicense *) licensePtr;
     std::string c = license->OriginalContent();
@@ -49,7 +49,7 @@ JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetOriginalCont
     return res;
 }
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetPassphraseHint(
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetPassphraseHint(
         JNIEnv *env, jobject obj, jlong licensePtr) {
     lcp::ILicense * license = (lcp::ILicense *) licensePtr;
     std::string hint = license->Crypto()->UserKeyHint();
@@ -57,7 +57,27 @@ JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetPassphraseHi
     return res;
 }
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetLinkPublication(
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetCareAuthenticationHint(
+        JNIEnv *env, jobject obj, jlong licensePtr) {
+    lcp::ILicense * license = (lcp::ILicense *) licensePtr;
+
+    std::string name("https://digital-content-care.com/oauth/v2");
+
+    if (!license->Links()->Has(name)) {
+        jstring res = env->NewStringUTF("");
+        //jstring res = toJstring(env, "", false);
+        return res;
+    }
+
+    lcp::Link link;
+    license->Links()->GetLink(name, link);
+
+    jstring res = env->NewStringUTF(link.title.c_str());
+    //jstring res = toJstring(env, link.href.c_str(), false);
+    return res;
+}
+
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetLinkPublication(
         JNIEnv *env, jobject obj, jlong licensePtr) {
     lcp::ILicense * license = (lcp::ILicense *) licensePtr;
 
@@ -77,7 +97,7 @@ JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetLinkPublicat
     return res;
 }
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetLinkStatus(
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetLinkStatus(
         JNIEnv *env, jobject obj, jlong licensePtr) {
     lcp::ILicense * license = (lcp::ILicense *) licensePtr;
 
@@ -97,8 +117,48 @@ JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetLinkStatus(
     return res;
 }
 
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetLinkAuthentication(
+        JNIEnv *env, jobject obj, jlong licensePtr) {
+    lcp::ILicense * license = (lcp::ILicense *) licensePtr;
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_License_nativeDecrypt(
+    std::string name("https://digital-content-care.com/oauth/v2");
+
+    if (!license->Links()->Has(name)) {
+        jstring res = env->NewStringUTF("");
+        //jstring res = toJstring(env, "", false);
+        return res;
+    }
+
+    lcp::Link link;
+    license->Links()->GetLink(name, link);
+
+    jstring res = env->NewStringUTF(link.href.c_str());
+    //jstring res = toJstring(env, link.href.c_str(), false);
+    return res;
+}
+
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetLinkResource(
+        JNIEnv *env, jobject obj, jlong licensePtr) {
+    lcp::ILicense * license = (lcp::ILicense *) licensePtr;
+
+    std::string name("https://digital-content-care.com/resources");
+
+    if (!license->Links()->Has(name)) {
+        jstring res = env->NewStringUTF("");
+        //jstring res = toJstring(env, "", false);
+        return res;
+    }
+
+    lcp::Link link;
+    license->Links()->GetLink(name, link);
+
+    jstring res = env->NewStringUTF(link.href.c_str());
+    //jstring res = toJstring(env, link.href.c_str(), false);
+    return res;
+}
+
+
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_License_nativeDecrypt(
         JNIEnv *env, jobject obj, jlong licensePtr, jlong servicePtr, jstring jPassphrase) {
     const char * cPassphrase = env->GetStringUTFChars(jPassphrase, 0);
     std::string passphrase(cPassphrase);
@@ -107,7 +167,16 @@ JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_License_nativeDecrypt(
     lcp::Status status = service->DecryptLicense(license, passphrase);
 }
 
-JNIEXPORT jboolean JNICALL Java_org_readium_sdk_lcp_License_nativeIsOlderThan(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_License_nativeDecryptByUserKey(
+        JNIEnv *env, jobject obj, jlong licensePtr, jlong servicePtr, jstring jUserkey) {
+    const char * cUserkey = env->GetStringUTFChars(jUserkey, 0);
+    std::string userkey(cUserkey);
+    lcp::ILicense * license = (lcp::ILicense *) licensePtr;
+    lcp::ILcpService * service = (lcp::ILcpService *) servicePtr;
+    lcp::Status status = service->DecryptLicenseByUserKeyHexString(license, userkey);
+}
+
+JNIEXPORT jboolean JNICALL Java_org_readium_sdkforcare_lcp_License_nativeIsOlderThan(
         JNIEnv *env, jobject obj, jlong licensePtr, jlong servicePtr, jstring jTimestamp) {
 
     const char * cTimestamp = env->GetStringUTFChars(jTimestamp, 0);
@@ -125,7 +194,7 @@ JNIEXPORT jboolean JNICALL Java_org_readium_sdk_lcp_License_nativeIsOlderThan(
     return ((compared < 0) ? JNI_TRUE : JNI_FALSE);
 }
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_License_nativeSetStatusDocumentProcessingFlag(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_License_nativeSetStatusDocumentProcessingFlag(
         JNIEnv *env, jobject obj, jlong licensePtr, jboolean jFlag) {
 
     lcp::ILicense * license = (lcp::ILicense *) licensePtr;
@@ -134,7 +203,7 @@ JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_License_nativeSetStatusDocumentP
 }
 
 #if ENABLE_NET_PROVIDER_ACQUISITION
-JNIEXPORT jobject JNICALL Java_org_readium_sdk_lcp_License_nativeCreateAcquisition(
+JNIEXPORT jobject JNICALL Java_org_readium_sdkforcare_lcp_License_nativeCreateAcquisition(
         JNIEnv *env, jobject obj, jlong licensePtr, jlong servicePtr, jstring jDstPath) {
     const char * cDstPath = env->GetStringUTFChars(jDstPath, 0);
     std::string dstPath(cDstPath);
@@ -147,7 +216,7 @@ JNIEXPORT jobject JNICALL Java_org_readium_sdk_lcp_License_nativeCreateAcquisiti
         return nullptr;
     }
 
-    jclass cls = env->FindClass("org/readium/sdk/lcp/Acquisition");
+    jclass cls = env->FindClass("org/readium/sdkforcare/lcp/Acquisition");
     jmethodID methodId = env->GetMethodID(cls, "<init>", "(J)V");
     return env->NewObject(cls, methodId, (jlong) acquisition);
 }

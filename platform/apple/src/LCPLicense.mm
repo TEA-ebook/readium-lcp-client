@@ -82,4 +82,44 @@
     return [NSString stringWithUTF8String:_nativeLicense->Crypto()->UserKeyHint().c_str()];
 }
 
+//TEA
+- (NSString *)careAuthenticationHint
+{
+    std::string careAuthenticationStr("https://digital-content-care.com/oauth/v2");
+    if (!_nativeLicense->Links()->Has(careAuthenticationStr)) {
+        return @"";
+    }
+    
+    lcp::Link link;
+    _nativeLicense->Links()->GetLink(careAuthenticationStr, link);
+    
+    return [NSString stringWithUTF8String:link.title.c_str()];
+}
+
+- (NSString *)linkAuthentication
+{
+    std::string careAuthenticationStr("https://digital-content-care.com/oauth/v2");
+    if (!_nativeLicense->Links()->Has(careAuthenticationStr)) {
+        return @"";
+    }
+    
+    lcp::Link link;
+    _nativeLicense->Links()->GetLink(careAuthenticationStr, link);
+    
+    return [NSString stringWithUTF8String:link.href.c_str()];
+}
+
+- (NSString *)linkResource
+{
+    std::string careAuthenticationStr("https://digital-content-care.com/resources");
+    if (!_nativeLicense->Links()->Has(careAuthenticationStr)) {
+        return @"";
+    }
+    
+    lcp::Link link;
+    _nativeLicense->Links()->GetLink(careAuthenticationStr, link);
+    
+    return [NSString stringWithUTF8String:link.href.c_str()];
+}
+
 @end

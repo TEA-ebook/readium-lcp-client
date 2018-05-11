@@ -24,7 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-package org.readium.sdk.lcp;
+package org.readium.sdkforcare.lcp;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +51,9 @@ public class Service {
     public void injectLicense(String epubPath, License license) {
         this.nativeInjectLicense(this.nativePtr, epubPath, license.getOriginalContent());
     }
+    public void decryptFile(String licenseContent, String fileIn, String fileOut) {
+	this.nativeDecryptFile(this.nativePtr, licenseContent, fileIn, fileOut);
+    }
 
 
     /**
@@ -67,4 +70,5 @@ public class Service {
     private native void nativeInjectLicense(long nativePtr, String epubPath, String licenseContent);
 //    private native void nativeInjectLicense(long nativePtr, String epubPath, License license);
 
+    private native void nativeDecryptFile(long servicePtr, String licenseContent, String fileIn, String fileOut);
 }

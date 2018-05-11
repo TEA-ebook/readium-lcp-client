@@ -23,7 +23,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-package org.readium.sdk.lcp;
+package org.readium.sdkforcare.lcp;
 
 public abstract class DoneCallback {
     public abstract void Done(boolean done);

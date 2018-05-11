@@ -60,7 +60,7 @@ namespace lcp {
         EncryptionInfoPtr encryption = item->GetEncryptionInfo();
         bool encrypted = (encryption != nullptr && encryption->KeyRetrievalMethodType() == "http://readium.org/2014/01/lcp#EncryptedContentKey");
         
-//        LOG("Resource <" << item->Href() << "> " << (encrypted ? "is" : "is not") << " encrypted");
+        LOG("Resource <" << item->Href() << "> " << (encrypted ? "is" : "is not") << " encrypted");
         
         return encrypted;
     }

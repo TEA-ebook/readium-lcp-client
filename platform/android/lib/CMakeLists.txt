@@ -53,7 +53,7 @@ SET (
     LCP_LINK_LIBRARIES
     "clientlib"
     "contentfilter"
-    "${RSDK_LIB_DIR}/${CMAKE_BUILD_TYPE}/${ANDROID_ABI}/libepub3.so"
+    "${RSDK_LIB_DIR}/${CMAKE_BUILD_TYPE}/${ANDROID_ABI}/libepub3_forcare.so"
 )
 
 # Extra cmake called before build

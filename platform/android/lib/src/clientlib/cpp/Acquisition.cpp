@@ -32,7 +32,7 @@
 #include "AcquisitionCallback.h"
 
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_Acquisition_nativeStart(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_Acquisition_nativeStart(
         JNIEnv *env, jobject obj, jobject jAcquisitionCallback, jlong acquisitionPtr) {
     lcp::IAcquisition * acquisition = (lcp::IAcquisition *) acquisitionPtr;
     lcp::IAcquisitionCallback * acquisitionCallback;
@@ -44,7 +44,7 @@ JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_Acquisition_nativeStart(
     acquisition->Start(acquisitionCallback);
 }
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_Acquisition_nativeCancel(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_Acquisition_nativeCancel(
         JNIEnv *env, jobject obj, jlong acquisitionPtr) {
     lcp::IAcquisition * acquisition = (lcp::IAcquisition *) acquisitionPtr;
 

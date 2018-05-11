@@ -112,6 +112,7 @@ namespace lcp
         // stored inside the storage provider for future retrieval.
         //
         virtual Status DecryptLicense(ILicense * license, const std::string & userPassphrase) = 0;
+        virtual Status DecryptLicenseByUserKeyHexString(ILicense * license, const std::string & userKeyHexString) = 0;
 
         //
         // Decrypts the input data using the given License.
@@ -164,6 +165,7 @@ namespace lcp
             const std::string & providerId,
             const std::string & licenseId
             ) = 0;
+        virtual Status DecryptFile(const std::string & licenseJson, const std::string & file_in, const std::string & file_out) = 0;
 
 #if ENABLE_NET_PROVIDER_ACQUISITION
         //
