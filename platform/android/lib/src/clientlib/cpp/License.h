@@ -48,7 +48,7 @@ JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetOrigi
 JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetPassphraseHint(
         JNIEnv *env, jobject obj, jlong licensePtr);
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetCareAuthenticationHint(
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetCareAuthenticationHint(
         JNIEnv *env, jobject obj, jlong licensePtr);
 
 JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetLinkPublication(
