@@ -292,17 +292,36 @@ didCompleteWithError:(nullable NSError *)error
             //}
             
         } else if (code < 200 || code >= 300) {
-            
-            _data_TASK_DESCRIPTION_CARE_TOKEN_REQUEST = nil;
-            
             NSLog(@"%@", [NSString stringWithFormat:@"HTTP fail (TASK_DESCRIPTION_CARE_TOKEN_REQUEST) [%@] => (%li)", [(NSHTTPURLResponse *)task.response URL], code]);
             
             if (code==401)
                 _shouldRetry = true;
             else
                 _shouldRetry = false;
+            
+            NSString *reason = [[NSString alloc] initWithFormat:@"HTTP error %d during Token Request", code];
+            try {
+                NSString *json = [[NSString alloc] initWithData:_data_TASK_DESCRIPTION_CARE_TOKEN_REQUEST encoding:NSUTF8StringEncoding];
+                
+                NSError *jsonError = nil;
+                id rootJsonObj = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonError];
+                
+                if ((jsonError == nil) && (rootJsonObj != nil)) {
+                    BOOL okay = [NSJSONSerialization isValidJSONObject:rootJsonObj];
+                    if (okay) {
+                        NSString *error_description = [rootJsonObj valueForKey:@"error_description"];
+                        if ((error_description != nil) && (error_description.length>0))
+                            reason = error_description;
+                    }
+                }
+            }
+            catch (...) {
+            }
+            
+            _data_TASK_DESCRIPTION_CARE_TOKEN_REQUEST = nil;
+            
             if (_delegate != nil)
-                [_delegate onResult:CARE_AUTHENT_ERROR reason:@"HTTP error during Token Request"];
+                [_delegate onResult:CARE_AUTHENT_ERROR reason:reason];
             
             //if (!_wasCancelled) {
             //    [_statusDocumentProcessingListener onStatusDocumentProcessingComplete:self];
@@ -395,9 +414,6 @@ didCompleteWithError:(nullable NSError *)error
             //}
             
         } else if (code < 200 || code >= 300) {
-            
-            _data_TASK_DESCRIPTION_CARE_RESOURCE_REQUEST = nil;
-            
             NSLog(@"%@", [NSString stringWithFormat:@"HTTP fail (TASK_DESCRIPTION_CARE_RESOURCE_REQUEST) [%@] => (%li)", [(NSHTTPURLResponse *)task.response URL], code]);
             [self removeToken:_authentication_link];
             
@@ -407,8 +423,29 @@ didCompleteWithError:(nullable NSError *)error
             else
                 _shouldRetry = false;
             
+            NSString *reason = [[NSString alloc] initWithFormat:@"HTTP error %d during Resource_Request", code];
+            try {
+                NSString *json = [[NSString alloc] initWithData:_data_TASK_DESCRIPTION_CARE_RESOURCE_REQUEST encoding:NSUTF8StringEncoding];
+                
+                NSError *jsonError = nil;
+                id rootJsonObj = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonError];
+                
+                if ((jsonError == nil) && (rootJsonObj != nil)) {
+                    BOOL okay = [NSJSONSerialization isValidJSONObject:rootJsonObj];
+                    if (okay) {
+                        NSString *error_description = [rootJsonObj valueForKey:@"error_description"];
+                        if ((error_description != nil) && (error_description.length>0))
+                            reason = error_description;
+                    }
+                }
+            }
+            catch (...) {
+            }
+            
+            _data_TASK_DESCRIPTION_CARE_RESOURCE_REQUEST = nil;
+            
             if (_delegate != nil)
-                [_delegate onResult:CARE_AUTHENT_ERROR reason:@"HTTP error during Resource Request"];
+                [_delegate onResult:CARE_AUTHENT_ERROR reason:reason];
             
             //if (!_wasCancelled) {
             //    [_statusDocumentProcessingListener onStatusDocumentProcessingComplete:self];
