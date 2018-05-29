@@ -144,7 +144,7 @@ namespace lcp
             const std::string & userId,
             const std::string & licenseId
             );
-        Status LcpService::DecryptFile(const std::string & licenseJson, const std::string & file_in, const std::string & file_out);
+       // Status DecryptFile(const std::string & licenseJson, const std::string & file_in, const std::string & file_out);
 
     private:
         std::string m_rootCertificate;

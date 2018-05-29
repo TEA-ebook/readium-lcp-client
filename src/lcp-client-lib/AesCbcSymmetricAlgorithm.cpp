@@ -138,7 +138,10 @@ namespace lcp
         size_t plainTextSize = this->PlainTextSize(stream);
         if (rangeInfo.position + rangeInfo.length > plainTextSize)
         {
-            throw std::out_of_range("params to decrypt out of range");
+            char buff[256];
+            snprintf(buff, sizeof(buff), "params to decrypt out of range: rangeInfo.position=%zu,rangeInfo.length=%zu, plainTextSize=%zu",rangeInfo.position, rangeInfo.length, plainTextSize);
+            std::string buffAsStdStr = buff;
+            throw std::out_of_range(buffAsStdStr);
         }
 
         // Get offset result offset in the block

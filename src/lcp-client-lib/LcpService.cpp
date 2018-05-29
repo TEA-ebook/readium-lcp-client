@@ -777,7 +777,7 @@ namespace lcp
         }
 
         DefaultFile *writableStream = new DefaultFile(file_out, IFileSystemProvider::OpenMode::CreateNew);
-        int bytesToRead = encryptedStream->DecryptedSize();
+        int64_t bytesToRead = encryptedStream->DecryptedSize();
         uint8_t *buffer = (uint8_t *)malloc(bytesToRead);
         encryptedStream->Read(buffer, bytesToRead);
         writableStream->Write(buffer, bytesToRead);
