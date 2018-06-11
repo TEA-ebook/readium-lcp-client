@@ -232,16 +232,6 @@ namespace lcp
         KeyType rawPublicKey = rootCertificate->PublicKey();
         publicKeyQueue.Put(&rawPublicKey.at(0), rawPublicKey.size());
         publicKeyQueue.MessageEnd();
-//
-//        CryptoPP::ECDSA<CryptoPP::ECP, CryptoPP::SHA256>::PublicKey publicKeyECDSA;
-//        CryptoPP::RSA::PublicKey publicKeyRSA;
-//
-//        if (m_signatureAlgorithm->Name() == AlgorithmNames::EcdsaSha256Id) {
-//            publicKeyECDSA.BERDecode(publicKeyQueue);
-//        } else {
-//            publicKeyRSA.BERDecode(publicKeyQueue);
-//        }
-
         std::unique_ptr<PK_Verifier> rootVerifierPtr;
 
         if (m_signatureAlgorithm->Name() == AlgorithmNames::EcdsaSha256Id) {

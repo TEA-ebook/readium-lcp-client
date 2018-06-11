@@ -24,7 +24,8 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
+#include <string>
+#include <iostream>
 #include <sstream>
 #include "rapidjson/document.h"
 #include "RootLcpNode.h"
@@ -176,11 +177,20 @@ namespace lcp
 
     Status RootLcpNode::VerifyNode(ILicense * license, IClientProvider * clientProvider, ICryptoProvider * cryptoProvider)
     {
-        Status res = cryptoProvider->VerifyLicense(clientProvider->RootCertificate(), license);
+        std::istringstream stream(clientProvider->RootCertificate());
+        std::string cert;
+        Status res = Status(StatusCode::ErrorCommonSuccess, "");
+        
+        while (std::getline(stream, cert, '\n')) {
+            res = cryptoProvider->VerifyLicense(cert, license);
+            if (Status::IsSuccess(res)) break;
+        }
+        
         if (!Status::IsSuccess(res))
         {
             return res;
         }
+        
 #if ENABLE_GENERIC_JSON_NODE
         return BaseLcpNode::VerifyNode(license, clientProvider, cryptoProvider);
 #else
