@@ -275,7 +275,7 @@ namespace lcp
 
         if (verifierSigLength != sigLength)
         {
-            throw StatusException(Status(StatusCode::ErrorOpeningContentProviderCertificateNotValid, "ErrorOpeningContentProviderCertificateNotValid"));
+            return false;
         }
 
         return rootVerifierPtr->VerifyMessage(
