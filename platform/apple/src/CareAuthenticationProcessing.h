@@ -36,5 +36,5 @@ typedef enum {
 - (BOOL)getShouldRetry;
 
 - (void)continueCareAuthenticationWithCredentials:(NSString *)user password:(NSString *)password;
-
+- (void)continueCareAuthenticationWithToken:(NSString *)token;
 @end

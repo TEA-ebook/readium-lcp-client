@@ -159,9 +159,12 @@ NSString* TASK_DESCRIPTION_CARE_RESOURCE_REQUEST = @"CARE_RESOURCE_REQUEST";
     [self newTokenRequest:_authentication_link user:user password:password];
 }
 
+- (void)continueCareAuthenticationWithToken:(NSString *)token {
+    NSString *resource_url = [_license linkResource];
+    [self newResourceRequest:resource_url token:token];
+}
+
 -(void) newTokenRequest:(NSString *)tokenRequestUrl user:(NSString *)user password:(NSString *)password {
-    NSLog(@"CareAuthenticationProcessing:newTokenRequest url=%@ user=%@ password=%@", tokenRequestUrl, user, password);
-    
     NSURL *url = [NSURL URLWithString:tokenRequestUrl];
     
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
@@ -187,7 +190,6 @@ NSString* TASK_DESCRIPTION_CARE_RESOURCE_REQUEST = @"CARE_RESOURCE_REQUEST";
 }
 
 -(void) newResourceRequest:(NSString *)resourceRequestUrl token:(NSString *)token{
-    NSLog(@"CareAuthenticationProcessing:newResourceRequest url=%@ token=%@", resourceRequestUrl, token);
     
     NSString* queryStr = [NSString stringWithFormat:@"device_id=%@", [_deviceIDManager getDeviceID]];
     NSString *requrl2 = [resourceRequestUrl stringByReplacingOccurrencesOfString:@"{?device_id}" withString:[NSString stringWithFormat:@"?%@", queryStr]]; // TODO: smarter regexp?
@@ -205,7 +207,6 @@ NSString* TASK_DESCRIPTION_CARE_RESOURCE_REQUEST = @"CARE_RESOURCE_REQUEST";
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
     [urlRequest setHTTPMethod:@"GET"];
     NSString *authentication_header = [[NSString alloc] initWithFormat:@"Bearer %@", token];
-    NSLog(@"CareAuthenticationProcessing:newResourceRequest Authentication header: %@", authentication_header);
     [urlRequest setValue:authentication_header forHTTPHeaderField:@"Authorization"];
     //[urlRequest setValue:langCode forHTTPHeaderField:@"Accept-Language"];
     
@@ -366,7 +367,7 @@ didCompleteWithError:(nullable NSError *)error
                 NSInteger expires_in = [[rootJsonObj valueForKey:@"expires_in"] intValue];
                 NSString *token_type = [rootJsonObj valueForKey:@"token_type"];
                                         
-                NSLog(@"New token request result: access_token=%@ refresh_token=%@ expires_in=%d token_type=%@", access_token, refresh_token, expires_in, token_type);
+                NSLog(@"New token request result: access_token=********* refresh_token=********* expires_in=%d token_type=%@", expires_in, token_type);
                 [self storeToken:_authentication_link access_token:access_token refresh_token:refresh_token expires_in:expires_in];
                 NSString *resource_url = [_license linkResource];
                 if ([resource_url length] <= 0) {
@@ -486,7 +487,7 @@ didCompleteWithError:(nullable NSError *)error
                 }
                 
                 NSString *userkey = [rootJsonObj valueForKey:@"user_key"];
-                NSLog(@"New resource request result: userkey=%@", userkey);
+                NSLog(@"New resource request result: userkey=*************");
                 _userkey = userkey;
                 if (_delegate != nil) {
                     [_delegate onResult:CARE_AUTHENT_OK reason:@"OK"];
