@@ -58,12 +58,12 @@ println "${readiumSdkLibDir}"
 println "${readiumSdkIncludeDir}"
 android {
     flavorDimensions "defaultConfig"
-    compileSdkVersion 26
+    compileSdkVersion 28
     buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
