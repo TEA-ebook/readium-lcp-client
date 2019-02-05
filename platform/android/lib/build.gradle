@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 
 repositories {
+    google()
     mavenCentral()
     jcenter()
 }
@@ -56,6 +57,7 @@ println "${lcpBuildContentFilter}"
 println "${readiumSdkLibDir}"
 println "${readiumSdkIncludeDir}"
 android {
+    flavorDimensions "defaultConfig"
     compileSdkVersion 26
     buildToolsVersion "27.0.3"
 
