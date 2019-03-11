@@ -111,24 +111,6 @@
         return startDate;
     }
     return nil;
-
-//    NSData *data = [[self canonicalJSON] dataUsingEncoding:NSUTF8StringEncoding];
-//
-//    NSError *error;
-//    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-//    if (!jsonDictionary) {
-//        NSLog(@"Failed to parse license JSON: %@", error);
-//        return nil;
-//    }
-//
-//    NSDictionary *rights = [jsonDictionary objectForKey:@"rights"];
-//    if (rights == nil) { //  no need to check for (id)[NSNull null] here (because source data is LCP license JSON)
-//        return nil;
-//    }
-//    NSString *startDateString = [rights objectForKey:@"start"];
-//    if (startDateString == nil || [startDateString length] == 0) { // early exit
-//        return nil;
-//    }
 }
 
 - (NSDate *)rightsEnd {
@@ -142,24 +124,8 @@
         return endDate;
     }
     return nil;
+}
 
-//    NSData *data = [[self canonicalJSON] dataUsingEncoding:NSUTF8StringEncoding];
-//
-//    NSError *error;
-//    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-//    if (!jsonDictionary) {
-//        NSLog(@"Failed to parse license JSON: %@", error);
-//        return nil;
-//    }
-//
-//    NSDictionary *rights = [jsonDictionary objectForKey:@"rights"];
-//    if (rights == nil) { //  no need to check for (id)[NSNull null] here (because source data is LCP license JSON)
-//        return nil;
-//    }
-//    NSString *endDateString = [rights objectForKey:@"end"];
-//    if (endDateString == nil || [endDateString length] == 0) { // early exit
-//        return nil;
-//    }
 //TEA
 - (NSString *)careAuthenticationHint
 {
