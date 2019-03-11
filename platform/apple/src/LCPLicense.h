@@ -46,6 +46,10 @@ namespace lcp {
 
 - (NSDate *)rightsStart;
 - (NSDate *)rightsEnd;
+//TEA
+- (NSString *)careAuthenticationHint;
+- (NSString *)linkAuthentication;
+- (NSString *)linkResource;
 
 #ifdef __cplusplus
 @property (readonly, nonatomic) lcp::ILicense *nativeLicense;

@@ -2,6 +2,7 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
         Properties properties = new Properties()
@@ -42,5 +43,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 }

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 
 repositories {
+    google()
     mavenCentral()
     jcenter()
 }
@@ -56,12 +57,13 @@ println "${lcpBuildContentFilter}"
 println "${readiumSdkLibDir}"
 println "${readiumSdkIncludeDir}"
 android {
-    compileSdkVersion 26
+    flavorDimensions "defaultConfig"
+    compileSdkVersion 28
     buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -144,24 +146,24 @@ android {
                 }
             }
         }
-        if (!ndk_skipX86) {
+        /*if (!ndk_skipX86) {
             x86 {
                 ndk {
                     abiFilter 'x86'
                 }
             }
-        }
+        }*/
         /*arm8 {
             ndk {
                 abiFilters 'arm64-v8a'
             }
-        }
-        arm {
+        }*/
+        /*arm {
             ndk {
                 abiFilter 'armeabi'
             }
-        }
-        x86_64 {
+        }*/
+        /*x86_64 {
             ndk {
                 abiFilter 'x86_64'
             }

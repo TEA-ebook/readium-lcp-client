@@ -24,7 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-package org.readium.sdk.lcp;
+package org.readium.sdkforcare.lcp;
 
 public class License {
     /**
@@ -46,9 +46,14 @@ public class License {
     public String getPassphraseHint() {
         return this.nativeGetPassphraseHint(this.nativePtr);
     }
+    public String getCareAuthenticationHint() { return this.nativeGetCareAuthenticationHint(this.nativePtr); }
 
     public void decrypt(String passphrase) {
         this.nativeDecrypt(this.nativePtr, this.servicePtr, passphrase);
+    }
+
+    public void decryptByUserKey(String userkey) {
+        this.nativeDecryptByUserKey(this.nativePtr, this.servicePtr, userkey);
     }
 
     public boolean isOlderThan(String timestamp) {
@@ -65,6 +70,8 @@ public class License {
     public String getLink_Status() {
         return this.nativeGetLinkStatus(this.nativePtr);
     }
+    public String getLink_Authentication() { return this.nativeGetLinkAuthentication(this.nativePtr); }
+    public String getLink_Resource() { return this.nativeGetLinkResource(this.nativePtr); }
 
     public void setStatusDocumentProcessingFlag(boolean flag)
     {
@@ -91,11 +98,15 @@ public class License {
     private native String nativeGetOriginalContent(long nativePtr);
 
     private native String nativeGetPassphraseHint(long nativePtr);
+    private native String nativeGetCareAuthenticationHint(long nativePtr);
 
     private native String nativeGetLinkPublication(long nativePtr);
     private native String nativeGetLinkStatus(long nativePtr);
+    private native String nativeGetLinkAuthentication(long nativePtr);
+    private native String nativeGetLinkResource(long nativePtr);
 
     private native void nativeDecrypt(long nativePtr, long servicePtr, String passphrase);
+    private native void nativeDecryptByUserKey(long nativePtr, long servicePtr, String userkey);
 
     private native boolean nativeIsOlderThan(long nativePtr, long servicePtr, String timestamp);
 

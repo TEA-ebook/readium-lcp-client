@@ -24,7 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-package org.readium.sdk.lcp;
+package org.readium.sdkforcare.lcp;
 
 public interface StatusDocumentHandler {
     void process(License license);

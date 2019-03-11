@@ -60,6 +60,8 @@ extern NSString *const LCPRightEnd;
 - (void)injectLicense:(NSString *)epubPath licenseJSON:(NSString *)licenseJSON;
 - (LCPLicense *)openLicense:(NSString *)path licenseJSON:(NSString *)licenseJSON error:(NSError **)error;
 - (BOOL)decryptLicense:(LCPLicense *)license passphrase:(NSString *)passphrase error:(NSError **)error;
+- (BOOL)decryptLicenseByUserKey:(LCPLicense *)license userkey:(NSString *)userkey error:(NSError **)error;
+- (BOOL)decryptFile:(NSString *)licenseJSON file_in:(NSString *)file_in file_out:(NSString *)file_out;
 
 #if ENABLE_NET_PROVIDER_ACQUISITION
 - (LCPAcquisition *)createAcquisition:(LCPLicense *)license publicationPath:(NSString *)publicationPath error:(NSError **)error;

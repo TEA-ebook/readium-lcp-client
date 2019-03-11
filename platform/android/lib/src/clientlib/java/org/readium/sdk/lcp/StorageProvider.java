@@ -24,7 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-package org.readium.sdk.lcp;
+package org.readium.sdkforcare.lcp;
 
 import android.content.SharedPreferences;
 import 	android.content.Context;
@@ -35,7 +35,7 @@ import java.util.Set;
  * Store keys in shared preferences
  */
 public class StorageProvider {
-    private static final String PREFS_NAME_PREFIX = "org.readium.sdk.lcp.";
+    private static final String PREFS_NAME_PREFIX = "org.readium.sdkforcare.lcp.";
     private Context context;
 
     public StorageProvider(Context context) {

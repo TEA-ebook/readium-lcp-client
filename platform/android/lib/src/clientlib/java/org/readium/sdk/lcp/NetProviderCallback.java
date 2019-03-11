@@ -24,7 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-package org.readium.sdk.lcp;
+package org.readium.sdkforcare.lcp;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.ProgressCallback;

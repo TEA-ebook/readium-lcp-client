@@ -80,6 +80,7 @@ namespace lcp
         virtual int TimeStampCompare(const std::string & t1, const std::string & t2);
 
         virtual Status DecryptLicense(ILicense * license, const std::string & userPassphrase);
+        virtual Status DecryptLicenseByUserKeyHexString(ILicense * license, const std::string & userKeychar);
 
         virtual Status DecryptData(
             ILicense * license,
@@ -131,6 +132,7 @@ namespace lcp
         
         Status DecryptLicenseOnOpening(ILicense * license);
         Status DecryptLicenseByUserKey(ILicense * license, const KeyType & userKey);
+        Status DecryptFile(const std::string & licenseJson, const std::string & file_in, const std::string & file_out);
 //        Status DecryptLicenseByHexUserKey(ILicense * license, const std::string & hexUserKey);
         Status DecryptLicenseByStorage(ILicense * license);
         Status AddDecryptedUserKey(ILicense * license, const KeyType & userKey);
@@ -142,6 +144,7 @@ namespace lcp
             const std::string & userId,
             const std::string & licenseId
             );
+       // Status DecryptFile(const std::string & licenseJson, const std::string & file_in, const std::string & file_out);
 
     private:
         std::string m_rootCertificate;

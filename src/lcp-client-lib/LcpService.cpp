@@ -41,6 +41,7 @@
 #include "SimpleKeyProvider.h"
 #include "public/IStorageProvider.h"
 #include "RightsService.h"
+#include "public/DefaultFileSystemProvider.h"
 
 #include "DateTime.h"
 
@@ -119,17 +120,22 @@ namespace lcp
 
     int LcpService::TimeStampCompare(const std::string & t1, const std::string & t2) {
 
-        //DateTime now = DateTime::Now();
-        DateTime time1(t1);
-        DateTime time2(t2);
-        if (time1 < time2) {
-            return -1;
-        } else if (time1 == time2) {
-            return 0;
-        } else if (time1 > time2) {
-            return 1;
-        } else {
-            // What?!
+        try {
+            //DateTime now = DateTime::Now();
+            DateTime time1(t1);
+            DateTime time2(t2);
+            if (time1 < time2) {
+                return -1;
+            } else if (time1 == time2) {
+                return 0;
+            } else if (time1 > time2) {
+                return 1;
+            } else {
+                // What?!
+                return 0;
+            }
+        } catch (std::exception& e) {
+            //Bad conversion
             return 0;
         }
     }
@@ -369,6 +375,26 @@ namespace lcp
 
         rootNode->SetKeyProvider(std::unique_ptr<IKeyProvider>(new SimpleKeyProvider(userKey, contentKey)));
         return rootNode->DecryptNode(license, rootNode, m_cryptoProvider.get());
+    }
+    
+    Status LcpService::DecryptLicenseByUserKeyHexString(ILicense * license, const std::string & userKeyHexString)
+    {
+        KeyType userKey1;
+        KeyType userKey2;
+
+        Status res = m_cryptoProvider->ConvertHexToRaw(userKeyHexString, userKey1);
+        if (!Status::IsSuccess(res))
+            return res;
+
+        res = m_cryptoProvider->LegacyPassphraseUserKey(userKey1, userKey2);
+        if (!Status::IsSuccess(res))
+            return res;
+
+        res = this->DecryptLicenseByUserKey(license, userKey2);
+        if (!Status::IsSuccess(res))
+            return res;
+
+        return this->AddDecryptedUserKey(license, userKey1);
     }
 //
 //    Status LcpService::DecryptLicenseByHexUserKey(ILicense * license, const std::string & hexUserKey)
@@ -733,5 +759,32 @@ namespace lcp
         std::stringstream keyStream;
         keyStream << license->Provider() << "@" << userId << "@" << license->Id();
         return keyStream.str();
+    }
+
+    Status LcpService::DecryptFile(const std::string & licenseJson, const std::string & file_in, const std::string & file_out) {
+        std::string canonicalJson = this->CalculateCanonicalForm(licenseJson);
+        ILicense *license;
+        bool foundLicense = this->FindLicense(canonicalJson, &license);
+        if (!foundLicense) {
+            return Status(StatusCode::ErrorDecryptionLicenseEncrypted, "ErrorDecryptionLicenseEncrypted");
+        }
+
+        IEncryptedStream *encryptedStream;
+        DefaultFile *readableStream = new DefaultFile(file_in, IFileSystemProvider::OpenMode::ReadOnly);
+            Status status = CreateEncryptedDataStream(license, readableStream, license->Crypto()->ContentKeyAlgorithm(), &encryptedStream);
+        if (!Status::IsSuccess(status)) {
+            return status;
+        }
+
+        DefaultFile *writableStream = new DefaultFile(file_out, IFileSystemProvider::OpenMode::CreateNew);
+        int64_t bytesToRead = encryptedStream->DecryptedSize();
+        uint8_t *buffer = (uint8_t *)malloc(bytesToRead);
+        encryptedStream->Read(buffer, bytesToRead);
+        writableStream->Write(buffer, bytesToRead);
+        free(buffer);
+        delete readableStream;
+        delete writableStream;
+        delete encryptedStream;
+        return Status(StatusCode::ErrorCommonSuccess);
     }
 }

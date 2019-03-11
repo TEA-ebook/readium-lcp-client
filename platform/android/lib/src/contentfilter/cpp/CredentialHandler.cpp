@@ -33,7 +33,7 @@ namespace lcp {
         this->jCredentialHandler = env->NewGlobalRef(jCredentialHandler);
         jclass jCredentialHandlerClass = env->GetObjectClass(this->jCredentialHandler);
         this->jDecryptMethodId = env->GetMethodID(jCredentialHandlerClass, "decrypt",
-                                                   "(Lorg/readium/sdk/lcp/License;)V");
+                                                   "(Lorg/readium/sdkforcare/lcp/License;)V");
         this->service = service;
     }
 
@@ -44,7 +44,7 @@ namespace lcp {
 
     void CredentialHandler::decrypt(ILicense *license) {
         JNIEnv *env = getJNIEnv();
-        jclass cls = env->FindClass("org/readium/sdk/lcp/License");
+        jclass cls = env->FindClass("org/readium/sdkforcare/lcp/License");
         jmethodID methodId = env->GetMethodID(cls, "<init>", "(JJ)V");
         jobject jLicense = env->NewObject(cls, methodId, (jlong) license, (jlong) this->service);
         env->CallVoidMethod(this->jCredentialHandler, this->jDecryptMethodId, jLicense);

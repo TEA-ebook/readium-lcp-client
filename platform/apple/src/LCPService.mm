@@ -159,6 +159,17 @@ NSString *const LCPRightEnd = @(EndRight);
     return [self checkStatus:status error:error];
 }
 
+- (BOOL)decryptLicenseByUserKey:(LCPLicense *)license userkey:(NSString *)userkey error:(NSError **)error {
+    if (license.isDecrypted)
+        return YES;
+    
+    Status status = StatusCode::ErrorDecryptionLicenseEncrypted;
+    if (userkey) {
+        status = _nativeService->DecryptLicenseByUserKeyHexString(license.nativeLicense, [userkey UTF8String]);
+    }
+    return [self checkStatus:status error:error];
+}
+
 #if ENABLE_NET_PROVIDER_ACQUISITION
 - (LCPAcquisition *)createAcquisition:(LCPLicense *)license publicationPath:(NSString *)publicationPath error:(NSError **)error
 {
@@ -210,6 +221,13 @@ NSString *const LCPRightEnd = @(EndRight);
 - (void)setValue:(NSString *)value forRight:(NSString *)rightIdentifier license:(LCPLicense *)license
 {
     self.nativeService->GetRightsService()->SetValue(license.nativeLicense, [rightIdentifier UTF8String], [value UTF8String]);
+}
+
+- (BOOL)decryptFile:(NSString *)licenseJSON file_in:(NSString *)file_in file_out:(NSString *)file_out
+{
+    Status status = _nativeService->DecryptFile([licenseJSON UTF8String], [file_in UTF8String], [file_out UTF8String]);
+
+    return [self checkStatus:status error:NULL];
 }
 
 @end

@@ -59,7 +59,7 @@ namespace lcp {
     }
 }
 
-JNIEXPORT jobject JNICALL Java_org_readium_sdk_lcp_ServiceFactory_nativeBuild(
+JNIEXPORT jobject JNICALL Java_org_readium_sdkforcare_lcp_ServiceFactory_nativeBuild(
         JNIEnv *env, jobject obj, jstring jCertContent,
         jobject jStorageProvider,
 #if !DISABLE_NET_PROVIDER
@@ -84,7 +84,7 @@ JNIEXPORT jobject JNICALL Java_org_readium_sdk_lcp_ServiceFactory_nativeBuild(
     lcp::ICredentialHandler * credentialHandler = new lcp::CredentialHandler(jCredentialHandler, service);
     lcp::IStatusDocumentHandler * statusDocumentHandler = new lcp::StatusDocumentHandler(jStatusDocumentHandler, service);
     lcp::LcpContentModule::Register(service, credentialHandler, statusDocumentHandler);
-    jclass cls = env->FindClass("org/readium/sdk/lcp/Service");
+    jclass cls = env->FindClass("org/readium/sdkforcare/lcp/Service");
     jmethodID methodId = env->GetMethodID(cls, "<init>", "(J)V");
     return env->NewObject(cls, methodId, (jlong) service);
 }

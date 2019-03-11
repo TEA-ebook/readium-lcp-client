@@ -36,7 +36,7 @@ extern "C" jboolean javaEPub3_handleSdkError(JNIEnv *env, jstring message, jbool
 //extern "C" jstring toJstring(JNIEnv *env, const char* str, bool freeNative = false);
 
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_Service_nativeInjectLicense(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_Service_nativeInjectLicense(
         JNIEnv *env, jobject obj, jlong servicePtr, jstring jEpubPath, jstring jLicenseJson) {
 
      lcp::ILcpService * service = (lcp::ILcpService *) servicePtr;
@@ -50,7 +50,7 @@ JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_Service_nativeInjectLicense(
      service->InjectLicense(epubPath, licenseJson);
 }
 //
-//JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_Service_nativeInjectLicense(
+//JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_Service_nativeInjectLicense(
 //        JNIEnv *env, jobject obj, jlong servicePtr, jstring jEpubPath, jobject jLicense) {
 //
 //     lcp::ILcpService * service = (lcp::ILcpService *) servicePtr;
@@ -68,7 +68,7 @@ JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_Service_nativeInjectLicense(
 //     //env->DeleteGlobalRef(jLicense);
 //}
 
-JNIEXPORT jobject JNICALL Java_org_readium_sdk_lcp_Service_nativeOpenLicense(
+JNIEXPORT jobject JNICALL Java_org_readium_sdkforcare_lcp_Service_nativeOpenLicense(
         JNIEnv *env, jobject obj, jlong servicePtr, jstring jLicenseJson) {
 
      lcp::ILcpService * service = (lcp::ILcpService *) servicePtr;
@@ -109,7 +109,22 @@ JNIEXPORT jobject JNICALL Java_org_readium_sdk_lcp_Service_nativeOpenLicense(
           return nullptr;
      }
 
-     jclass cls = env->FindClass("org/readium/sdk/lcp/License");
+     jclass cls = env->FindClass("org/readium/sdkforcare/lcp/License");
      jmethodID methodId = env->GetMethodID(cls, "<init>", "(JJ)V");
      return env->NewObject(cls, methodId, (jlong) (*licensePTR), (jlong) service);
+
 }
+
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_Service_nativeDecryptFile(
+        JNIEnv *env, jobject obj, jlong servicePtr, jstring jLicenseJson, jstring jFileIn, jstring jFileOut) {
+     lcp::ILcpService * service = (lcp::ILcpService *) servicePtr;
+     const char * cLicenseJson = env->GetStringUTFChars(jLicenseJson, 0);
+     std::string licenseJson(cLicenseJson);
+     const char * cFileIn = env->GetStringUTFChars(jFileIn, 0);
+     std::string fileIn(cFileIn);
+     const char * cFileOut = env->GetStringUTFChars(jFileOut, 0);
+     std::string fileOut(cFileOut);
+
+     service->DecryptFile(licenseJson, fileIn, fileOut);
+}
+

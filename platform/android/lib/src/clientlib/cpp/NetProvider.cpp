@@ -70,14 +70,14 @@ namespace lcp {
     }
 }
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_NetProviderCallback_nativeOnRequestStarted(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_NetProviderCallback_nativeOnRequestStarted(
         JNIEnv *env, jobject obj, jlong callbackPtr, jlong requestPtr) {
     lcp::INetProviderCallback * callback = (lcp::INetProviderCallback *) callbackPtr;
     lcp::IDownloadRequest * request = (lcp::IDownloadRequest *) requestPtr;
     callback->OnRequestStarted(request);
 }
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_NetProviderCallback_nativeOnRequestEnded(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_NetProviderCallback_nativeOnRequestEnded(
         JNIEnv *env, jobject obj, jlong callbackPtr, jlong requestPtr, jstring path) {
     lcp::INetProviderCallback * callback = (lcp::INetProviderCallback *) callbackPtr;
     lcp::IDownloadRequest * request = (lcp::IDownloadRequest *) requestPtr;
@@ -94,14 +94,14 @@ JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_NetProviderCallback_nativeOnRequ
     callback->OnRequestEnded(request, status);
 }
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_NetProviderCallback_nativeOnRequestCanceled(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_NetProviderCallback_nativeOnRequestCanceled(
         JNIEnv *env, jobject obj, jlong callbackPtr, jlong requestPtr) {
     lcp::INetProviderCallback * callback = (lcp::INetProviderCallback *) callbackPtr;
     lcp::IDownloadRequest * request = (lcp::IDownloadRequest *) requestPtr;
     callback->OnRequestCanceled(request);
 }
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_NetProviderCallback_nativeOnRequestProgressed(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_NetProviderCallback_nativeOnRequestProgressed(
         JNIEnv *env, jobject obj, jlong callbackPtr, jlong requestPtr, jfloat progress) {
     lcp::INetProviderCallback * callback = (lcp::INetProviderCallback *) callbackPtr;
     lcp::IDownloadRequest * request = (lcp::IDownloadRequest *) requestPtr;

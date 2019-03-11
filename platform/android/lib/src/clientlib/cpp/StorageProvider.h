@@ -106,7 +106,7 @@ namespace lcp {
     };
 }
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_StorageProvider_getValue(JNIEnv *env,
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_StorageProvider_getValue(JNIEnv *env,
                                                                             jobject obj,
                                                                             jstring key);
 

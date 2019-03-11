@@ -41,6 +41,7 @@ namespace lcp
         )
         : m_stream(stream)
         , m_algorithm(std::move(algorithm))
+        , m_readPosition(0)
     {
     }
 

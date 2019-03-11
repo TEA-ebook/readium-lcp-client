@@ -39,33 +39,46 @@ namespace lcp {
     };
 }
 
-JNIEXPORT jboolean JNICALL Java_org_readium_sdk_lcp_License_nativeIsDecrypted(
+JNIEXPORT jboolean JNICALL Java_org_readium_sdkforcare_lcp_License_nativeIsDecrypted(
         JNIEnv *env, jobject obj, jlong licensePtr);
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetOriginalContent(
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetOriginalContent(
         JNIEnv *env, jobject obj, jlong licensePtr);
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetPassphraseHint(
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetPassphraseHint(
         JNIEnv *env, jobject obj, jlong licensePtr);
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetLinkPublication(
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetCareAuthenticationHint(
         JNIEnv *env, jobject obj, jlong licensePtr);
 
-JNIEXPORT jstring JNICALL Java_org_readium_sdk_lcp_License_nativeGetLinkStatus(
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetLinkPublication(
+        JNIEnv *env, jobject obj, jlong licensePtr);
+
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetLinkStatus(
+        JNIEnv *env, jobject obj, jlong licensePtr);
+
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetLinkAuthentication(
+        JNIEnv *env, jobject obj, jlong licensePtr);
+
+JNIEXPORT jstring JNICALL Java_org_readium_sdkforcare_lcp_License_nativeGetLinkResource(
         JNIEnv *env, jobject obj, jlong licensePtr);
 
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_License_nativeDecrypt(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_License_nativeDecrypt(
         JNIEnv *env, jobject obj, jlong licensePtr, jlong servicePtr, jstring jPassphrase);
 
-JNIEXPORT jboolean JNICALL Java_org_readium_sdk_lcp_License_nativeIsOlderThan(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_License_nativeDecryptByUserKey(
+        JNIEnv *env, jobject obj, jlong licensePtr, jlong servicePtr, jstring jUserkey);
+
+
+JNIEXPORT jboolean JNICALL Java_org_readium_sdkforcare_lcp_License_nativeIsOlderThan(
         JNIEnv *env, jobject obj, jlong licensePtr, jlong servicePtr, jstring jTimestamp);
 
-JNIEXPORT void JNICALL Java_org_readium_sdk_lcp_License_nativeSetStatusDocumentProcessingFlag(
+JNIEXPORT void JNICALL Java_org_readium_sdkforcare_lcp_License_nativeSetStatusDocumentProcessingFlag(
         JNIEnv *env, jobject obj, jlong licensePtr, jboolean jFlag);
 
 #if ENABLE_NET_PROVIDER_ACQUISITION
-JNIEXPORT jobject JNICALL Java_org_readium_sdk_lcp_License_nativeCreateAcquisition(
+JNIEXPORT jobject JNICALL Java_org_readium_sdkforcare_lcp_License_nativeCreateAcquisition(
         JNIEnv *env, jobject obj, jlong licensePtr, jlong servicePtr, jstring jDstPath);
 #endif //ENABLE_NET_PROVIDER_ACQUISITION
 
