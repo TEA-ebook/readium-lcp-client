@@ -59,7 +59,8 @@ namespace lcp
 
         virtual Status LegacyPassphraseUserKey(
                 const KeyType & userKey1,
-                KeyType & userKey2
+                KeyType & userKey2,
+                const std::string &ProfileName
         ) = 0;
 
         virtual Status DecryptContentKey(

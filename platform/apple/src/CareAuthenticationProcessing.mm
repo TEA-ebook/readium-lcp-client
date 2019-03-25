@@ -34,64 +34,23 @@
     BOOL _shouldRetry;
     
     bool _wasCancelled;
-    //id<StatusDocumentProcessingListener> _statusDocumentProcessingListener;
-    
-    //NSString * _statusDocument_ID;
-    //NSString * _statusDocument_STATUS; // ready, active, revoked, returned, cancelled, expired
-    //NSString * _statusDocument_MESSAGE; // localized as per HTTP Accept-Language
-    //NSString * _statusDocument_UPDATED_LICENSE; //ISO 8601 time and date
-    //NSString * _statusDocument_UPDATED_STATUS; //ISO 8601 time and date
-    //StatusDocumentLink* _statusDocument_LINK_LICENSE; // HTTP GET URL, no-template
-    //StatusDocumentLink* _statusDocument_LINK_REGISTER;
-    //StatusDocumentLink* _statusDocument_LINK_RETURN;
-    //StatusDocumentLink* _statusDocument_LINK_RENEW;
-    //NSString * _statusDocument_POTENTIAL_RIGHTS_END; // ISO 8601 time and date
-    
-    //NSMutableData *_data_TASK_DESCRIPTION_LCP_LSD_FETCH;
-    //NSMutableData *_data_TASK_DESCRIPTION_LCP_LSD_REGISTER;
-    //NSMutableData *_data_TASK_DESCRIPTION_LCP_FETCH;
-    //NSMutableData *_data_TASK_DESCRIPTION_LCP_LSD_RETURN;
-    //NSMutableData *_data_TASK_DESCRIPTION_LCP_LSD_RENEW;
     NSMutableData *_data_TASK_DESCRIPTION_CARE_TOKEN_REQUEST;
     NSMutableData *_data_TASK_DESCRIPTION_CARE_RESOURCE_REQUEST;
-    
-    //DoneCallback _doneCallback_registerDevice;
-    //DoneCallback _doneCallback_fetchAndInjectUpdatedLicense;
-    //DoneCallback _doneCallback_doReturn;
-    //DoneCallback _doneCallback_doRenew;
-    
     bool _isInitialized;
 }
 
 NSString* TASK_DESCRIPTION_CARE_TOKEN_REQUEST = @"CARE_TOKEN_REQUEST";
 NSString* TASK_DESCRIPTION_CARE_RESOURCE_REQUEST = @"CARE_RESOURCE_REQUEST";
 
-- (instancetype)init:(LCPService *)service epubPath:(NSString *)epubPath license:(LCPLicense*)license deviceIdManager:(id<DeviceIdManager>)deviceIdManager
+- (instancetype)init:(LCPService *)service license:(LCPLicense*)license deviceIdManager:(id<DeviceIdManager>)deviceIdManager
 {
     self = [super init];
     if (self) {
         _service = service;
-        _epubPath = epubPath;
         _license = license;
         _deviceIDManager = deviceIdManager;
         
         _wasCancelled = false;
-        //_statusDocumentProcessingListener = nil;
-        
-        //_statusDocument_ID = @"";
-        //_statusDocument_STATUS = @"";
-        //_statusDocument_MESSAGE = @"";
-        //_statusDocument_UPDATED_LICENSE = @"";
-        //_statusDocument_UPDATED_STATUS = @"";
-        //_statusDocument_LINK_LICENSE = nil;
-        //_statusDocument_LINK_REGISTER = nil;
-        //_statusDocument_LINK_RETURN = nil;
-        //_statusDocument_LINK_RENEW = nil;
-        //_statusDocument_POTENTIAL_RIGHTS_END = @"";
-        
-        //_data_TASK_DESCRIPTION_LCP_LSD_FETCH = nil;
-        //_data_TASK_DESCRIPTION_LCP_LSD_REGISTER = nil;
-        //_data_TASK_DESCRIPTION_LCP_FETCH = nil;
         _data_TASK_DESCRIPTION_CARE_TOKEN_REQUEST = nil;
         _data_TASK_DESCRIPTION_CARE_RESOURCE_REQUEST = nil;
     }

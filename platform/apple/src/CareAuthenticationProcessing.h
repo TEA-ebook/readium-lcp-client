@@ -25,7 +25,7 @@ typedef enum {
 
 @interface CareAuthenticationProcessing : NSObject
 
-- (instancetype)init:(LCPService *)service epubPath:(NSString *)epubPath license:(LCPLicense*)license deviceIdManager:(id<DeviceIdManager>)deviceIdManager;
+- (instancetype)init:(LCPService *)service license:(LCPLicense*)license deviceIdManager:(id<DeviceIdManager>)deviceIdManager;
 
 - (void)setDelegate:(id<CareAuthenticationProcessing_Events>)delegate;
 

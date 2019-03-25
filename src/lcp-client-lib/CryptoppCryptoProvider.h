@@ -84,7 +84,8 @@ class ICertificateRevocationList;
 
         virtual Status LegacyPassphraseUserKey(
                 const KeyType & userKey1,
-                KeyType & userKey2
+                KeyType & userKey2,
+                const std::string &ProfileName
         );
 
         virtual Status DecryptContentKey(

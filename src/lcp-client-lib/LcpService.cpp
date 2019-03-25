@@ -386,7 +386,7 @@ namespace lcp
         if (!Status::IsSuccess(res))
             return res;
 
-        res = m_cryptoProvider->LegacyPassphraseUserKey(userKey1, userKey2);
+        res = m_cryptoProvider->LegacyPassphraseUserKey(userKey1, userKey2, license->Crypto()->EncryptionProfile());
         if (!Status::IsSuccess(res))
             return res;
 
@@ -452,7 +452,7 @@ namespace lcp
                 return res;
 
             KeyType userKey2;
-            res = m_cryptoProvider->LegacyPassphraseUserKey(userKey1, userKey2);
+            res = m_cryptoProvider->LegacyPassphraseUserKey(userKey1, userKey2, license->Crypto()->EncryptionProfile());
             if (!Status::IsSuccess(res))
                 return res;
 
@@ -473,7 +473,7 @@ namespace lcp
                 continue;
 
             KeyType userKey2;
-            res = m_cryptoProvider->LegacyPassphraseUserKey(userKey1, userKey2);
+            res = m_cryptoProvider->LegacyPassphraseUserKey(userKey1, userKey2, license->Crypto()->EncryptionProfile());
             if (!Status::IsSuccess(res))
                 continue;
 
