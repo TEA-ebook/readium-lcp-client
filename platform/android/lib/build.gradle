@@ -37,7 +37,7 @@ if (rootProject.hasProperty("readium_lcp_build_content_filter")) {
 }
 println("extraCmake ${extraCmake}")
 def toolchain = ndk_clang ? "clang" : "gcc"
-def stl = ndk_clang ? "c++_shared" : "gnustl_shared"
+def stl = ndk_clang ? "c++_static" : "gnustl_static"
 
 if (!lcpBuildContentFilter) {
     try {
@@ -145,27 +145,27 @@ android {
                     abiFilter 'armeabi-v7a'
                 }
             }
+            arm8 {
+                ndk {
+                    abiFilters 'arm64-v8a'
+                }
+            }
         }
-        /*if (!ndk_skipX86) {
+        if (!ndk_skipX86) {
             x86 {
                 ndk {
                     abiFilter 'x86'
                 }
             }
-        }*/
-        /*arm8 {
-            ndk {
-                abiFilters 'arm64-v8a'
+            x86_64 {
+                ndk {
+                    abiFilter 'x86_64'
+                }
             }
-        }*/
+        }
         /*arm {
             ndk {
                 abiFilter 'armeabi'
-            }
-        }*/
-        /*x86_64 {
-            ndk {
-                abiFilter 'x86_64'
             }
         }*/
     }
