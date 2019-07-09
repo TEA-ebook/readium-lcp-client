@@ -37,7 +37,7 @@ if (rootProject.hasProperty("readium_lcp_build_content_filter")) {
 }
 println("extraCmake ${extraCmake}")
 def toolchain = ndk_clang ? "clang" : "gcc"
-def stl = ndk_clang ? "c++_static" : "gnustl_static"
+def stl = ndk_clang ? "c++_shared" : "gnustl_shared"
 
 if (!lcpBuildContentFilter) {
     try {
