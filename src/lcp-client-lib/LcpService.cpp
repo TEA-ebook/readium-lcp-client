@@ -53,6 +53,8 @@ ZIPLIB_INCLUDE_START
 #include "ziplib/Source/ZipLib/ZipFile.h"
 ZIPLIB_INCLUDE_END
 
+#define DECRYPT_CHUNK_SZ 1048576
+
 static std::string const LcpLicensePath = "META-INF/license.lcpl";
 
 namespace lcp
@@ -778,10 +780,21 @@ namespace lcp
 
         DefaultFile *writableStream = new DefaultFile(file_out, IFileSystemProvider::OpenMode::CreateNew);
         int64_t bytesToRead = encryptedStream->DecryptedSize();
-        uint8_t *buffer = (uint8_t *)malloc(bytesToRead);
-        encryptedStream->Read(buffer, bytesToRead);
-        writableStream->Write(buffer, bytesToRead);
-        free(buffer);
+        while (encryptedStream->ReadPosition() < bytesToRead) {
+            int64_t buffersz = DECRYPT_CHUNK_SZ;
+            if (bytesToRead - encryptedStream->ReadPosition() < DECRYPT_CHUNK_SZ) {
+                buffersz = bytesToRead - encryptedStream->ReadPosition();
+            }
+            if (buffersz >= 0) {
+                uint8_t *buffer = (uint8_t *)malloc(buffersz);
+                encryptedStream->Read(buffer, buffersz);
+                writableStream->Write(buffer, buffersz);
+                free(buffer);
+            }
+            else {
+                break;
+            }
+        }
         delete readableStream;
         delete writableStream;
         delete encryptedStream;
